@@ -21,20 +21,23 @@
                         break;
 
                     case 'O':
+                        //indkommenteres igen
                         //door.OnDoorOpen();
                         break;
 
                     case 'C':
-                       // door.OnDoorClose();
-                        break;
+                        //indkommenteres igen
+                    // door.OnDoorClose();
+                    break;
 
                     case 'R':
                         System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                       // rfidReader.OnRfidRead(id);
-                        break;
+                        //indkommenteres igen
+                    // rfidReader.OnRfidRead(id);
+                    break;
 
                     default:
                         break;

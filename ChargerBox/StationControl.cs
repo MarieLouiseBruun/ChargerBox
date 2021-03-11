@@ -37,6 +37,7 @@ namespace ChargerBox
                     // Check for ladeforbindelse
                     if (_charger.Connected)
                     {
+                        //skal indkommeteres igen
                         //_door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
@@ -64,6 +65,7 @@ namespace ChargerBox
                     if (id == _oldId)
                     {
                         _charger.StopCharge();
+
                         //_door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {
