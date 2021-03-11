@@ -6,5 +6,9 @@ namespace ChargingStation
 {
     public class RfidReader
     {
+        public void OnRfidRead(in int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

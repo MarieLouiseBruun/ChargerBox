@@ -8,6 +8,7 @@
         {
 				// Assemble your system here from all the classes
                 Door door = new Door();
+                RfidReader rfidReader = new RfidReader();
                 StationControl stationControl = new StationControl();
 
             bool finish = false;
@@ -26,12 +27,10 @@
                         break;
 
                     case 'O':
-                        //indkommenteres igen
                         door.OnDoorOpen();
                         break;
 
                     case 'C':
-                        //indkommenteres igen
                      door.OnDoorClose();
                     break;
 
