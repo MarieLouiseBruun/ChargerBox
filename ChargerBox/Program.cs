@@ -1,10 +1,14 @@
 ﻿    using System;
+    using ChargerBox;
+    using ChargingStation;
 
     class Program
     {
         static void Main(string[] args)
         {
 				// Assemble your system here from all the classes
+                Door door = new Door();
+                StationControl stationControl = new StationControl();
 
             bool finish = false;
             do
@@ -14,6 +18,7 @@
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
+                
                 switch (input[0])
                 {
                     case 'E':
@@ -22,12 +27,12 @@
 
                     case 'O':
                         //indkommenteres igen
-                        //door.OnDoorOpen();
+                        door.OnDoorOpen();
                         break;
 
                     case 'C':
                         //indkommenteres igen
-                    // door.OnDoorClose();
+                     door.OnDoorClose();
                     break;
 
                     case 'R':
@@ -36,7 +41,7 @@
 
                         int id = Convert.ToInt32(idString);
                         //indkommenteres igen
-                    // rfidReader.OnRfidRead(id);
+                     rfidReader.OnRfidRead(id);
                     break;
 
                     default:
