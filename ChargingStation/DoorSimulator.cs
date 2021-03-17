@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ChargingStation
 {
-    public class Door
+    public class DoorSimulator: IDoor
     {
+        //Skal måske have DoorEventArgs ind her - ligesom for CurrentEventArgs og UsbChargerSimulator
         public void UnlockDoor()
         {
             throw new NotImplementedException();

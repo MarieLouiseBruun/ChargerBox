@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChargingStation
 {
-    public class LogFile
+    public interface IFileLog
     {
     }
 }

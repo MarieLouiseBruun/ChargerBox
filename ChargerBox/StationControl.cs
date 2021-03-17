@@ -20,18 +20,19 @@ namespace ChargerBox
 
         // Her mangler flere member variable
         private ChargeBoxState _state;
-        private IUsbCharger _charger;
+        private IChargeControl _charger;
         private int _oldId;
-        private Door _door;
+        private IDoor _doorSimulator;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl()
+        public StationControl(IDoor doorSimulator)
         {
-
+            _doorSimulator = doorSimulator;
         }
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
+        //Metode til når man scanner id-kortet på Rfid-readeren
         private void RfidDetected(int id)
         {
             switch (_state)
@@ -40,9 +41,10 @@ namespace ChargerBox
                     // Check for ladeforbindelse
                     if (_charger.Connected)
                     {
-                        _door.LockDoor();
+                        _doorSimulator.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
+                        //Skal evt. flyttes til FileLog eller skrives helt om
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
@@ -68,7 +70,9 @@ namespace ChargerBox
                     {
                         _charger.StopCharge();
 
-                        _door.UnlockDoor();
+                        _doorSimulator.UnlockDoor();
+
+                        //Skal evt. flyttes til FileLog eller skrives helt om
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ChargingStation
 {
-    public class Display
+    public class RfidEventArgs
     {
+
     }
 }

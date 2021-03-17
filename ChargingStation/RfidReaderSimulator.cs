@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChargingStation
 {
-    public class RfidReader
+    public class RfidReaderSimulator : IRfidReader
     {
         public void OnRfidRead(in int id)
         {

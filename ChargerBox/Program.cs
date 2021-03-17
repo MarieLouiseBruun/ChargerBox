@@ -7,9 +7,15 @@
         static void Main(string[] args)
         {
 				// Assemble your system here from all the classes
-                Door door = new Door();
-                RfidReader rfidReader = new RfidReader();
-                StationControl stationControl = new StationControl();
+                //DoorSimulator doorSimulator = new DoorSimulator();
+                IDoor doorSimulator = new DoorSimulator();
+                //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
+                IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
+                
+                StationControl stationControl = new StationControl(doorSimulator);
+
+                //Det man indtaster simulerer det som brugeren fysisk gør.
+                //Fra program bliver der sat gang i Events, som StationControl får besked om
 
             bool finish = false;
             do
@@ -19,7 +25,6 @@
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
-                
                 switch (input[0])
                 {
                     case 'E':
@@ -27,11 +32,11 @@
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        doorSimulator.OnDoorOpen();
                         break;
 
                     case 'C':
-                     door.OnDoorClose();
+                     doorSimulator.OnDoorClose();
                     break;
 
                     case 'R':
@@ -39,8 +44,8 @@
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        //indkommenteres igen
-                     rfidReader.OnRfidRead(id);
+                        
+                     rfidReaderSimulator.OnRfidRead(id);
                     break;
 
                     default:
