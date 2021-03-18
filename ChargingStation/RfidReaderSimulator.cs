@@ -6,16 +6,13 @@ namespace ChargingStation
 {
     public class RfidReaderSimulator : IRfidReader
     {
-        public void OnRfidRead(in int id)
-        {
-            throw new NotImplementedException();
-        }
-        public int rfId { get; private set; }
+        public int Rfid { get; private set; }
 
         public event EventHandler<RfidEventArgs> RfidEvent;
+
         public void OnRfidRead(int id)
         {
-            RfidEvent?.Invoke(this, new RfidEventArgs() { RfID  = this.rfId });
+            RfidEvent?.Invoke(this, new RfidEventArgs() { RfID  = this.Rfid });
         }
     }
 }
