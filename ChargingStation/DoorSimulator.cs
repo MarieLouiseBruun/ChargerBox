@@ -24,12 +24,14 @@ namespace ChargingStation
 
         public void OnDoorOpen()
         {
+            IsOpenValue = true;
             IsOpenValueEvent?.Invoke(this, new DoorEventArgs() { IsOpen = this.IsOpenValue });
         }
 
         public void OnDoorClose()
         {
-            throw new NotImplementedException();
+            IsOpenValue = false;
+            IsOpenValueEvent?.Invoke(this, new DoorEventArgs() { IsOpen = this.IsOpenValue });
         }
     }
 }

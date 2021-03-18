@@ -54,10 +54,12 @@ namespace ChargerBox
             if (!open)
             {
                _state= ChargeBoxState.Available;
+               Console.WriteLine("Lukket");
             }
             else
             {
                 _state = ChargeBoxState.DoorOpen;
+                Console.WriteLine("Åben");
             }
         }
 
