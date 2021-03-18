@@ -6,6 +6,10 @@ namespace ChargingStation
 {
     public class DoorSimulator: IDoor
     {
+        public bool IsOpenValue { get; private set; }
+
+        public event EventHandler<DoorEventArgs> IsOpenValueEvent;
+
         //Skal måske have DoorEventArgs ind her - ligesom for CurrentEventArgs og UsbChargerSimulator
         public void UnlockDoor()
         {
@@ -21,7 +25,7 @@ namespace ChargingStation
 
         public void OnDoorOpen()
         {
-            throw new NotImplementedException();
+            IsOpenValueEvent?.Invoke(this, new DoorEventArgs() { IsOpen = this.IsOpenValue });
         }
 
         public void OnDoorClose()
