@@ -25,6 +25,7 @@ namespace ChargerBox
         private IDoor _doorSimulator;
         private bool _open;
 
+        //
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
@@ -38,7 +39,7 @@ namespace ChargerBox
 
         private void HandleDoorEvent(object? sender, DoorEventArgs e)
         {
-            open = e.IsOpen;
+            _open = e.IsOpen;
             DoorAffected();
         }
 
@@ -51,7 +52,7 @@ namespace ChargerBox
         private void DoorAffected()
         {
             
-            if (!open)
+            if (!_open)
             {
                _state= ChargeBoxState.Available;
                Console.WriteLine("Lukket");
