@@ -7,15 +7,16 @@ namespace ChargingStation
     public class ChargeControl : IChargeControl
     {
         public bool Connected { get; set; }
+        private IUsbCharger usbCharger = new UsbChargerSimulator();
 
         public void StartCharge()
         {
-            throw new NotImplementedException();
+            usbCharger.StartCharge();
         }
 
         public void StopCharge()
         {
-            throw new NotImplementedException();
+            usbCharger.StopCharge();
         }
     }
 }

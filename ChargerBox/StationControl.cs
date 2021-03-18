@@ -29,8 +29,9 @@ namespace ChargerBox
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor doorSimulator, IRfidReader rfidReader)
+        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl usbCharger)
         {
+            _charger = usbCharger;
             //_doorSimulator = doorSimulator;
             doorSimulator.IsOpenValueEvent += HandleDoorEvent;
             rfidReader.RfidEvent += HandleRfIdEvent;
@@ -50,16 +51,17 @@ namespace ChargerBox
 
         private void DoorAffected()
         {
-            
             if (!_open)
             {
+                //der skal også være mulighed for at den er lukket og i brug? men måske bliver det løst i AFIDdetected
                _state= ChargeBoxState.Available;
-               Console.WriteLine("Lukket");
+               Console.WriteLine("Indlæs RFID");
             }
             else
             {
+                //hvad sker der hvis døren er låst? ikke nødvendigvis her der skal tages højde for det.
                 _state = ChargeBoxState.DoorOpen;
-                Console.WriteLine("Åben");
+                Console.WriteLine("Tilslut telefon");
             }
         }
 

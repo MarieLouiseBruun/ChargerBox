@@ -8,11 +8,12 @@
         {
 				// Assemble your system here from all the classes
                 //DoorSimulator doorSimulator = new DoorSimulator();
+                IChargeControl chargerControl = new ChargeControl();
                 IDoor doorSimulator = new DoorSimulator();
                 //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
                 IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
                 
-                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator);
+                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargerControl);
 
                 //Det man indtaster simulerer det som brugeren fysisk gør.
                 //Fra program bliver der sat gang i Events, som StationControl får besked om
@@ -21,7 +22,7 @@
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E, O, C, R, Y, N: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -46,6 +47,13 @@
                         int id = Convert.ToInt32(idString);
                         
                      rfidReaderSimulator.OnRfidRead(id);
+                    break;
+
+                case 'Y':
+                        chargerControl.Connected = true;
+                        break;
+                case 'N':
+                    chargerControl.Connected = false;
                     break;
 
                     default:
