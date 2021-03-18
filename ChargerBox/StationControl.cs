@@ -23,6 +23,7 @@ namespace ChargerBox
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _doorSimulator;
+        private bool open;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
@@ -30,28 +31,39 @@ namespace ChargerBox
         public StationControl(IDoor doorSimulator, IRfidReader rfidReader)
         {
             //_doorSimulator = doorSimulator;
-            doorSimulator.IsOpenValueEvent += DoorAffected;
+            doorSimulator.IsOpenValueEvent += HandleDoorEvent;
             //den er utilfreds med at der er et ID med i metoden RfidDetected
-            rfidReader.RfidEvent += RfidDetected;
+            rfidReader.RfidEvent += HandleRfIdEvent;
         }
 
-        private void DoorAffected(object? sender, DoorEventArgs e)
+        private void HandleDoorEvent(object? sender, DoorEventArgs e)
         {
-            switch (_state)
+            open = e.IsOpen;
+            DoorAffected();
+        }
+
+        private void HandleRfIdEvent(object? sender, RfidEventArgs e)
+        {
+            _oldId = e.RfID;
+            RfidDetected(_oldId);
+        }
+
+        private void DoorAffected()
+        {
+            
+            if (!open)
             {
-                case ChargeBoxState.Available:
-                    break;
-                case ChargeBoxState.Locked:
-                    //ignore
-                    break;
-                case ChargeBoxState.DoorOpen:
-                    break;
+               _state= ChargeBoxState.Available;
+            }
+            else
+            {
+                _state = ChargeBoxState.DoorOpen;
             }
         }
 
             // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         //Metode til når man scanner id-kortet på Rfid-readeren
-        private void RfidDetected(int id, object? sender, DoorEventArgs e)
+        private void RfidDetected(int id/*, object? sender, DoorEventArgs e*/)
         {
             switch (_state)
             {
