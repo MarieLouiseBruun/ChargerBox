@@ -6,6 +6,7 @@ namespace ChargingStation
 {
     public interface IDoor
     {
+        event EventHandler<DoorEventArgs> IsOpenValueEvent;
         void LockDoor();
         void UnlockDoor();
         void OnDoorOpen();

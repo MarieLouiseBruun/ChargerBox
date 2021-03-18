@@ -12,6 +12,8 @@ namespace ChargingStation
             throw new NotImplementedException();
         }
 
+        public event EventHandler<DoorEventArgs> IsOpenValueEvent;
+
         public void LockDoor()
         {
             throw new NotImplementedException();
