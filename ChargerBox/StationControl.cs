@@ -29,30 +29,29 @@ namespace ChargerBox
         // Her mangler constructor
         public StationControl(IDoor doorSimulator, IRfidReader rfidReader)
         {
-            _doorSimulator = doorSimulator;
-            doorSimulator.
-           //rfidReader.;
+            //_doorSimulator = doorSimulator;
+            doorSimulator.IsOpenValueEvent += DoorAffected;
+            //den er utilfreds med at der er et ID med i metoden RfidDetected
+            rfidReader.RfidEvent += RfidDetected;
         }
 
-        private void DoorAffected()
+        private void DoorAffected(object? sender, DoorEventArgs e)
         {
             switch (_state)
             {
-               case ChargeBoxState.Available:
-                   break;
+                case ChargeBoxState.Available:
+                    break;
                 case ChargeBoxState.Locked:
                     //ignore
                     break;
                 case ChargeBoxState.DoorOpen:
                     break;
-
-
             }
         }
-        
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
+
+            // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         //Metode til når man scanner id-kortet på Rfid-readeren
-        private void RfidDetected(int id)
+        private void RfidDetected(int id, object? sender, DoorEventArgs e)
         {
             switch (_state)
             {

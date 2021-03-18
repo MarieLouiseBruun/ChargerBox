@@ -6,6 +6,7 @@ namespace ChargingStation
 {
     public interface IRfidReader
     {
+        event EventHandler<RfidEventArgs> RfidEvent;
         void OnRfidRead(int id);
     }
 }

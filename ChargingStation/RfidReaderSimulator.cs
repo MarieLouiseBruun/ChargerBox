@@ -10,5 +10,12 @@ namespace ChargingStation
         {
             throw new NotImplementedException();
         }
+        public int rfId { get; private set; }
+
+        public event EventHandler<RfidEventArgs> RfidEvent;
+        public void OnRfidRead(int id)
+        {
+            RfidEvent?.Invoke(this, new RfidEventArgs() { RfID  = this.rfId });
+        }
     }
 }
