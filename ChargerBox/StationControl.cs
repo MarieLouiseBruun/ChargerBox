@@ -23,7 +23,7 @@ namespace ChargerBox
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _doorSimulator;
-        private bool open;
+        private bool _open;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
