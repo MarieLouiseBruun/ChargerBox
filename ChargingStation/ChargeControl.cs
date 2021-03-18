@@ -7,6 +7,7 @@ namespace ChargingStation
     public class ChargeControl : IChargeControl
     {
         public bool Connected { get; set; }
+
         public void StartCharge()
         {
             throw new NotImplementedException();
