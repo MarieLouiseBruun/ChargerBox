@@ -33,7 +33,6 @@ namespace ChargerBox
         {
             //_doorSimulator = doorSimulator;
             doorSimulator.IsOpenValueEvent += HandleDoorEvent;
-            //den er utilfreds med at der er et ID med i metoden RfidDetected
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
 
