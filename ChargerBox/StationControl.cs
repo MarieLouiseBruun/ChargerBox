@@ -21,20 +21,19 @@ namespace ChargerBox
         // Her mangler flere member variable
         private ChargeBoxState _state;
         private IChargeControl _charger;
+        private IFileLog _fileLog; 
         //private IUsbCharger _usbCharger;
         private int _oldId;
         private IDoor _doorSimulator;
-        private bool _open;
+        private bool _open; //slettes? 
         private int _id;
-        private bool _locked;
-
-        //
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private bool _locked; //slettes?
 
         // Her mangler constructor
-        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger)
+        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger, IFileLog fileLog)
         {
             _charger = charger;
+            _fileLog = fileLog; 
             //_usbCharger = usbCharger
             _doorSimulator = doorSimulator;
             doorSimulator.IsOpenValueEvent += HandleDoorEvent;
@@ -84,11 +83,8 @@ namespace ChargerBox
                         _doorSimulator.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        //Skal evt. flyttes til FileLog eller skrives helt om
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+
+                        _fileLog.LogToFile(id);
 
                         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
@@ -113,11 +109,7 @@ namespace ChargerBox
 
                         _doorSimulator.UnlockDoor();
 
-                        //Skal evt. flyttes til FileLog eller skrives helt om
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        _fileLog.LogToFile(id);
 
                         Console.WriteLine("Tag din telefon ud af skabet og luk døren");
                         _state = ChargeBoxState.Available;

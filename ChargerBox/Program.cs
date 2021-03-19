@@ -13,8 +13,9 @@
                 IDoor doorSimulator = new DoorSimulator();
                 //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
                 IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
+                IFileLog fileLog = new FileLog();
                 
-                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargeControl);
+                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargeControl, fileLog);
 
                 //Det man indtaster simulerer det som brugeren fysisk gør.
                 //Fra program bliver der sat gang i Events, som StationControl får besked om
