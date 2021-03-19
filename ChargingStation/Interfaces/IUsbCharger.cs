@@ -17,5 +17,7 @@ namespace ChargingStation
         void StartCharge();
         // Stop charging
         void StopCharge();
+        void SimulateConnected(bool connected);
+       
     }
 }

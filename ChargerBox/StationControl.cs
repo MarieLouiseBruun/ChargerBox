@@ -21,6 +21,7 @@ namespace ChargerBox
         // Her mangler flere member variable
         private ChargeBoxState _state;
         private IChargeControl _charger;
+        //private IUsbCharger _usbCharger;
         private int _oldId;
         private IDoor _doorSimulator;
         private bool _open;
@@ -29,10 +30,11 @@ namespace ChargerBox
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl usbCharger)
+        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger)
         {
-            _charger = usbCharger;
-            //_doorSimulator = doorSimulator;
+            _charger = charger;
+            //_usbCharger = usbCharger
+            _doorSimulator = doorSimulator;
             doorSimulator.IsOpenValueEvent += HandleDoorEvent;
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
@@ -73,7 +75,7 @@ namespace ChargerBox
             {
                 case ChargeBoxState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_charger.GetConnected())
                     {
                         _doorSimulator.LockDoor();
                         _charger.StartCharge();

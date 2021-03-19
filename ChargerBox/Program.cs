@@ -8,12 +8,13 @@
         {
 				// Assemble your system here from all the classes
                 //DoorSimulator doorSimulator = new DoorSimulator();
-                IChargeControl chargerControl = new ChargeControl();
+                IUsbCharger charger = new UsbChargerSimulator();
+                IChargeControl chargeControl = new ChargeControl(charger);
                 IDoor doorSimulator = new DoorSimulator();
                 //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
                 IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
                 
-                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargerControl);
+                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargeControl);
 
                 //Det man indtaster simulerer det som brugeren fysisk gør.
                 //Fra program bliver der sat gang i Events, som StationControl får besked om
@@ -50,10 +51,10 @@
                     break;
 
                 case 'Y':
-                        chargerControl.Connected = true;
+                        charger.SimulateConnected(true);
                         break;
                 case 'N':
-                    chargerControl.Connected = false;
+                    charger.SimulateConnected(false);
                     break;
 
                     default:

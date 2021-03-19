@@ -13,13 +13,13 @@ namespace ChargingStation
         //Skal måske have DoorEventArgs ind her - ligesom for CurrentEventArgs og UsbChargerSimulator
         public void UnlockDoor()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is unlocked");
         }
 
 
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Door is locked");
         }
 
         public void OnDoorOpen()
