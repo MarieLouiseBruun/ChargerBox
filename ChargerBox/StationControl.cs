@@ -25,6 +25,8 @@ namespace ChargerBox
         private int _oldId;
         private IDoor _doorSimulator;
         private bool _open;
+        private int _id;
+        private bool _locked;
 
         //
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
@@ -47,29 +49,31 @@ namespace ChargerBox
 
         private void HandleRfIdEvent(object? sender, RfidEventArgs e)
         {
-            _oldId = e.RfID;
-            RfidDetected(_oldId);
+            _id = e.RfID;
+            RfidDetected(_id);
         }
 
         private void DoorAffected()
         {
-            if (!_open)
+            switch (_state)
             {
-                //der skal også være mulighed for at den er lukket og i brug? men måske bliver det løst i AFIDdetected
-               _state= ChargeBoxState.Available;
-               Console.WriteLine("Indlæs RFID");
-            }
-            else
-            {
-                //hvad sker der hvis døren er låst? ikke nødvendigvis her der skal tages højde for det.
-                _state = ChargeBoxState.DoorOpen;
-                Console.WriteLine("Tilslut telefon");
+                case ChargeBoxState.Locked:
+                    Console.WriteLine("Skabet er desværre låst");
+                    break;
+                case ChargeBoxState.DoorOpen:
+                    _state = ChargeBoxState.Available;
+                        Console.WriteLine("Indlæs RFID");
+                    break;
+                case ChargeBoxState.Available:
+                    _state = ChargeBoxState.DoorOpen;
+                    Console.WriteLine("Tilslut telefon");
+                    break;
             }
         }
 
             // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         //Metode til når man scanner id-kortet på Rfid-readeren
-        private void RfidDetected(int id/*, object? sender, DoorEventArgs e*/)
+        private void RfidDetected(int id)
         {
             switch (_state)
             {
@@ -87,6 +91,7 @@ namespace ChargerBox
                         }
 
                         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+
                         _state = ChargeBoxState.Locked;
                     }
                     else

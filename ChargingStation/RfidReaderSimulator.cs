@@ -12,6 +12,7 @@ namespace ChargingStation
 
         public void OnRfidRead(int id)
         {
+            Rfid = id;
             RfidEvent?.Invoke(this, new RfidEventArgs() { RfID  = this.Rfid });
         }
     }
