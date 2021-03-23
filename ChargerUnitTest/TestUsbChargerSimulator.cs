@@ -42,7 +42,7 @@ namespace ChargerUnitTest
         public void Started_WaitSomeTime_ReceivedSeveralValues()
         {
             int numValues = 0;
-            _uut.CurrentValueEvent += (o, args) => numValues++;
+            _uut.CurrentValueEvent += (o, args) => numValues++; //hvordan bliver numValues mere end fire, når den kun bliver kaldt en gang??
 
             _uut.StartCharge();
 
@@ -54,6 +54,7 @@ namespace ChargerUnitTest
         [Test]
         public void Started_WaitSomeTime_ReceivedChangedValue()
         {
+            //tester for den første if i StartCharge()
             double lastValue = 1000;
             _uut.CurrentValueEvent += (o, args) => lastValue = args.Current;
 
