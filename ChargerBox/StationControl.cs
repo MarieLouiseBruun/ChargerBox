@@ -11,7 +11,7 @@ namespace ChargerBox
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum ChargeBoxState
+        public enum ChargeBoxState
         {
             Available,
             Locked,
@@ -19,7 +19,7 @@ namespace ChargerBox
         };
 
         // Her mangler flere member variable
-        private ChargeBoxState _state;
+        public ChargeBoxState _state;
         private IChargeControl _charger;
         private IFileLog _fileLog; 
         //private IUsbCharger _usbCharger;
@@ -40,7 +40,7 @@ namespace ChargerBox
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
 
-        private void HandleDoorEvent(object? sender, DoorEventArgs e)
+        public void HandleDoorEvent(object? sender, DoorEventArgs e)
         {
             _open = e.IsOpen;
             DoorAffected();
@@ -52,7 +52,7 @@ namespace ChargerBox
             RfidDetected(_id);
         }
 
-        private void DoorAffected()
+        public void DoorAffected()
         {
             switch (_state)
             {
