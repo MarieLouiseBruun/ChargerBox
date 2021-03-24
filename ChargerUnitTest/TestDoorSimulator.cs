@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,7 +14,8 @@ namespace ChargerUnitTest
     public class TestDoorSimulator
     {
         private DoorSimulator _uut;
-        private DoorEventArgs _eventArgs; 
+        private DoorEventArgs _eventArgs;
+        private StringWriter _stringWriter;
 
         [SetUp]
         public void Setup()
@@ -27,6 +29,8 @@ namespace ChargerUnitTest
                 {
                     _eventArgs = args;
                 };
+            _stringWriter = new StringWriter();
+            System.Console.SetOut(_stringWriter);
         }
 
         [Test]
@@ -57,6 +61,20 @@ namespace ChargerUnitTest
             Assert.That(_eventArgs.IsOpen, Is.EqualTo(false));
         }
 
-        //Test Lock/Unlock - Console.Writeline()
+        [Test]
+        public void DoorLockedSimulated()
+        {
+            _uut.LockDoor();
+            var text = _stringWriter.ToString();
+            Assert.AreEqual("**Dør låst**\r\n", text);
+        }
+
+        [Test]
+        public void DoorUnLockedSimulated()
+        {
+            _uut.UnlockDoor();
+            var text = _stringWriter.ToString();
+            Assert.AreEqual("**Dør ulåst**\r\n", text);
+        }
     }
 }
