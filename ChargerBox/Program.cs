@@ -1,6 +1,8 @@
 ﻿    using System;
+    using System.ComponentModel.DataAnnotations;
     using ChargerBox;
     using ChargingStation;
+    using ChargingStation.Interfaces;
 
     class Program
     {
@@ -10,12 +12,13 @@
                 //DoorSimulator doorSimulator = new DoorSimulator();
                 IUsbCharger charger = new UsbChargerSimulator();
                 IChargeControl chargeControl = new ChargeControl(charger);
+                IDisplay display = new Display();
                 IDoor doorSimulator = new DoorSimulator();
                 //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
                 IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
                 IFileLog fileLog = new FileLog();
                 
-                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargeControl, fileLog);
+                StationControl stationControl = new StationControl(doorSimulator, rfidReaderSimulator, chargeControl, fileLog, display);
 
                 //Det man indtaster simulerer det som brugeren fysisk gør.
                 //Fra program bliver der sat gang i Events, som StationControl får besked om

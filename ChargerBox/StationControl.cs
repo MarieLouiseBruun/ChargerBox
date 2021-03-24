@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChargingStation;
+using ChargingStation.Interfaces;
 
 namespace ChargerBox
 {
@@ -20,19 +21,22 @@ namespace ChargerBox
         
         private ChargeBoxState _state;
         private IChargeControl _charger;
-        private IFileLog _fileLog; 
+        private IFileLog _fileLog;
+
+        private IDisplay _display;
         //private IUsbCharger _usbCharger;
         private int _oldId;
         private IDoor _doorSimulator;
         private bool _open; //slettes? 
         private int _id;
 
-        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger, IFileLog fileLog)
+        public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger, IFileLog fileLog, IDisplay display)
         {
             _charger = charger;
             _fileLog = fileLog; 
             //_usbCharger = usbCharger
             _doorSimulator = doorSimulator;
+            _display = display;
             doorSimulator.IsOpenValueEvent += HandleDoorEvent;
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
