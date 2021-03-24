@@ -17,9 +17,8 @@ namespace ChargerBox
             Locked,
             DoorOpen
         };
-
-        // Her mangler flere member variable
-        public ChargeBoxState _state;
+        
+        private ChargeBoxState _state;
         private IChargeControl _charger;
         private IFileLog _fileLog; 
         //private IUsbCharger _usbCharger;
@@ -27,9 +26,7 @@ namespace ChargerBox
         private IDoor _doorSimulator;
         private bool _open; //slettes? 
         private int _id;
-        private bool _locked; //slettes?
 
-        // Her mangler constructor
         public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger, IFileLog fileLog)
         {
             _charger = charger;
@@ -40,7 +37,7 @@ namespace ChargerBox
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
 
-        public void HandleDoorEvent(object? sender, DoorEventArgs e)
+        private void HandleDoorEvent(object? sender, DoorEventArgs e)
         {
             _open = e.IsOpen;
             DoorAffected();
@@ -52,7 +49,7 @@ namespace ChargerBox
             RfidDetected(_id);
         }
 
-        public void DoorAffected()
+        private void DoorAffected()
         {
             switch (_state)
             {

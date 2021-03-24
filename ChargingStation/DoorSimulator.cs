@@ -16,7 +16,6 @@ namespace ChargingStation
             Console.WriteLine("**Dør ulåst**");
         }
 
-
         public void LockDoor()
         {
             Console.WriteLine("**Dør låst**");
