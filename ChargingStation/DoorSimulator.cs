@@ -6,7 +6,7 @@ namespace ChargingStation
 {
     public class DoorSimulator: IDoor
     {
-        public bool IsOpenValue { get; private set; }
+        public bool IsOpenValue { get; set; }
 
         public event EventHandler<DoorEventArgs> IsOpenValueEvent;
 
