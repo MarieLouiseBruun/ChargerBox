@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChargingStation
 {
-    public class RfidEventArgs
+    public class RfidEventArgs : EventArgs
     {
         public int RfID { set; get; }
     }

@@ -7,5 +7,10 @@ namespace ChargingStation
 {
     public class Display : IDisplay
     {
+
+        public void Print(string text)
+        {
+            Console.WriteLine(text);
+        }
     }
 }

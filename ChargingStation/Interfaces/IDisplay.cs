@@ -6,5 +6,6 @@ namespace ChargingStation.Interfaces
 {
     public interface IDisplay
     {
+        void Print(string text);
     }
 }

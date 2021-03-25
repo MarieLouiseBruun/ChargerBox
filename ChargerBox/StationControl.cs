@@ -28,7 +28,7 @@ namespace ChargerBox
         private int _oldId;
         private IDoor _doorSimulator;
         private bool _open; //slettes? 
-        private int _id;
+        public int _id { get; set; }
 
         public StationControl(IDoor doorSimulator, IRfidReader rfidReader, IChargeControl charger, IFileLog fileLog, IDisplay display)
         {
@@ -58,15 +58,15 @@ namespace ChargerBox
             switch (_state)
             {
                 case ChargeBoxState.Locked:
-                    Console.WriteLine("Skabet er desværre låst");
+                    _display.Print("Skabet er desværre låst");
                     break;
                 case ChargeBoxState.DoorOpen:
                     _state = ChargeBoxState.Available;
-                        Console.WriteLine("Indlæs RFID");
+                    _display.Print("Indlæs RFID");
                     break;
                 case ChargeBoxState.Available:
                     _state = ChargeBoxState.DoorOpen;
-                    Console.WriteLine("Tilslut telefon");
+                    _display.Print("Tilslut telefon");
                     break;
             }
         }
@@ -87,13 +87,13 @@ namespace ChargerBox
 
                         _fileLog.LogToFile(id);
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _display.Print("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
                         _state = ChargeBoxState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.Print("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
 
                     break;
@@ -112,12 +112,12 @@ namespace ChargerBox
 
                         _fileLog.LogToFile(id);
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _display.Print("Tag din telefon ud af skabet og luk døren");
                         _state = ChargeBoxState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.Print("Forkert RFID tag");
                     }
 
                     break;

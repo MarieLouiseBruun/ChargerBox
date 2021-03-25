@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChargerBox;
 using ChargingStation;
+using ChargingStation.Interfaces;
+using NSubstitute;
 
 namespace ChargerUnitTest
 {
@@ -14,17 +16,37 @@ namespace ChargerUnitTest
     public class TestStationControl
     {
         private StationControl _uut;
+        private IChargeControl _chargeControl;
+        private IDisplay _display;
+        private IDoor _door;
+        private IFileLog _fileLog;
+        private IRfidReader _rfidReader;
+        private IUsbCharger _usbCharger;
+
         [SetUp]
         public void Setup()
         {
-           _uut = new StationControl(new DoorSimulator(),new RfidReaderSimulator(), new ChargeControl(new UsbChargerSimulator()), new FileLog());
+            _display = Substitute.For<IDisplay>();
+            _door = Substitute.For<IDoor>();
+            _fileLog = Substitute.For<IFileLog>();
+            _rfidReader = Substitute.For<IRfidReader>();
+            _usbCharger = Substitute.For<IUsbCharger>();
+            _chargeControl = Substitute.For<IChargeControl>(_usbCharger);
+
+            _uut = new StationControl(_door, _rfidReader, _chargeControl, _fileLog, _display);
         }
 
-        [Test] public void hej()
+        #region IDDetected
+
+        [TestCase(9999)]
+        [TestCase(1212)]
+        [TestCase(7788)]
+        public void RFIDDetected_DifferentArguments_RFIDIsCorrect(int id)
         {
-            _uut.DoorAffected();
-            Assert.That(_uut._state,Is.EqualTo(StationControl.ChargeBoxState.DoorOpen));
+            _rfidReader.RfidEvent += Raise.EventWith(this, new RfidEventArgs() { RfID = id });
+            Assert.That(_uut._id, Is.EqualTo(id));
         }
-        
+
+        #endregion
     }
 }
