@@ -149,7 +149,7 @@ namespace ChargerUnitTest
             _rfidReader.RfidEvent += Raise.EventWith(new RfidEventArgs { RfID = 123456 });
             _door.Received(1).UnlockDoor();
             _chargeControl.Received(1).StartCharge();
-            _fileLog.Received(2).LogDoorUnlocked(123456);
+            _fileLog.Received(1).LogDoorUnlocked(123456);
             _display.Received(1).Print("Tag din telefon ud af skabet og luk døren");
 
             _display.DidNotReceive().Print("Forkert RFID tag");
