@@ -85,7 +85,7 @@ namespace ChargerBox
                         _charger.StartCharge();
                         _oldId = id;
 
-                        _fileLog.LogToFile(id);
+                        _fileLog.LogDoorLocked(id);
 
                         _display.Print("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
@@ -110,7 +110,7 @@ namespace ChargerBox
 
                         _doorSimulator.UnlockDoor();
 
-                        _fileLog.LogToFile(id);
+                        _fileLog.LogDoorUnlocked(id);
 
                         _display.Print("Tag din telefon ud af skabet og luk døren");
                         _state = ChargeBoxState.Available;

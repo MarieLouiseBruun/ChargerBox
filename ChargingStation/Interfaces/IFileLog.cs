@@ -6,6 +6,7 @@ namespace ChargingStation
 {
     public interface IFileLog
     {
-        void LogToFile(int id);
+        void LogDoorLocked(int id);
+        void LogDoorUnlocked(int id);
     }
 }

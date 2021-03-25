@@ -98,7 +98,7 @@ namespace ChargerUnitTest
 
             _door.Received(1).LockDoor();
             _chargeControl.Received(1).StartCharge();
-            _fileLog.Received(1).LogToFile(123456);
+            _fileLog.Received(1).LogDoorLocked(123456);
             _display.Received(1).Print("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
 
             _display.DidNotReceive().Print("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
@@ -115,7 +115,7 @@ namespace ChargerUnitTest
 
             _door.DidNotReceive().LockDoor();
             _chargeControl.DidNotReceive().StartCharge();
-            _fileLog.DidNotReceive().LogToFile(123456);
+            _fileLog.DidNotReceive().LogDoorLocked(123456);
             _display.DidNotReceive().Print("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
         }
 
@@ -149,7 +149,7 @@ namespace ChargerUnitTest
             _rfidReader.RfidEvent += Raise.EventWith(new RfidEventArgs { RfID = 123456 });
             _door.Received(1).UnlockDoor();
             _chargeControl.Received(1).StartCharge();
-            _fileLog.Received(2).LogToFile(123456);
+            _fileLog.Received(2).LogDoorUnlocked(123456);
             _display.Received(1).Print("Tag din telefon ud af skabet og luk døren");
 
             _display.DidNotReceive().Print("Forkert RFID tag");
@@ -168,7 +168,7 @@ namespace ChargerUnitTest
 
             _door.DidNotReceive().UnlockDoor();
             _chargeControl.DidNotReceive().StopCharge();
-            _fileLog.DidNotReceive().LogToFile(123457);
+            _fileLog.DidNotReceive().LogDoorUnlocked(123457);
             _display.DidNotReceive().Print("Tag din telefon ud af skabet og luk døren");
         }
 
