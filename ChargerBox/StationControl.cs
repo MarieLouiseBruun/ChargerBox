@@ -41,6 +41,8 @@ namespace ChargerBox
             rfidReader.RfidEvent += HandleRfIdEvent;
         }
 
+        //HandleCurrentEvent
+
         private void HandleDoorEvent(object? sender, DoorEventArgs e)
         {
             _open = e.IsOpen;

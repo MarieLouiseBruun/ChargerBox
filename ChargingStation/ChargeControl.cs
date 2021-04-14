@@ -15,6 +15,8 @@ namespace ChargingStation
             _usbCharger = usbCharger;
         }
 
+        //HandleCurrentEvent
+
         public bool GetConnected()
         {
             return _usbCharger.Connected;
