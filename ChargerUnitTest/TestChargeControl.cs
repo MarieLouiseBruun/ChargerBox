@@ -63,7 +63,7 @@ namespace ChargerUnitTest
         }
 
         //Genaflevering
-        //ved hjælp BVA har vi udvalgt værdier, 
+        //ved hjælp BVA har vi udvalgt værdier, der giver forskellige udfald (1 udfald pr. test): 
 
         [Test]
         public void HandleCurrentEvent_CurrentIs0()
@@ -75,11 +75,26 @@ namespace ChargerUnitTest
 
         [TestCase(3)]
         [TestCase(5)]
-        public void HandleCurrentEvent_CurrentIs3or5(double _current)
+        public void HandleCurrentEvent_CurrentIs3or5(double current)
         {
-            //_uut.Current = _current;
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = _current});
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current});
             _display.Received(1).Print("Telefonen er fuldt opladt");
+            _usbCharger.Received(1).StopCharge();
+        }
+
+        [TestCase(200)]
+        [TestCase(500)]
+        public void HandleCurrentEvent_CurrentIs200or500(double current)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current });
+            _display.Received().Print("Ladning er i gang");
+        }
+
+        [Test]
+        public void HandleCurrentEvent_CurrentIs600()
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = 600 });
+            _display.Received(1).Print("FEJL!!!!!!");
             _usbCharger.Received(1).StopCharge();
         }
     }
