@@ -11,8 +11,8 @@
 				// Assemble your system here from all the classes
                 //DoorSimulator doorSimulator = new DoorSimulator();
                 IUsbCharger charger = new UsbChargerSimulator();
-                IChargeControl chargeControl = new ChargeControl(charger);
                 IDisplay display = new Display();
+                IChargeControl chargeControl = new ChargeControl(charger, display); 
                 IDoor doorSimulator = new DoorSimulator();
                 //RfidReaderSimulator rfidReaderSimulator = new RfidReaderSimulator();
                 IRfidReader rfidReaderSimulator = new RfidReaderSimulator();
