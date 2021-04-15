@@ -28,7 +28,6 @@ namespace ChargerUnitTest
             _usbCharger = Substitute.For<IUsbCharger>();
             _display = Substitute.For<IDisplay>();
             _uut = new ChargeControl(_usbCharger, _display);
-            _currentEvent = new CurrentEventArgs();
         }
 
      
