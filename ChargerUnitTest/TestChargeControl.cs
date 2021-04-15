@@ -17,13 +17,14 @@ namespace ChargerUnitTest
     {
         private IChargeControl _uut;
         private IUsbCharger _usbCharger;
+        private IDisplay _display;
         private bool _connected;
 
         [SetUp]
         public void Setup()
         {
             _usbCharger = Substitute.For<IUsbCharger>();
-            _uut = new ChargeControl(_usbCharger);
+            _uut = new ChargeControl(_usbCharger, _display);
         }
 
      
