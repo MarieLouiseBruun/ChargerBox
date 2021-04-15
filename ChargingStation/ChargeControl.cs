@@ -10,7 +10,7 @@ namespace ChargingStation
         //public bool Connected { get; set; }
         private IUsbCharger _usbCharger;
         private IDisplay _display;
-        private double _current;  
+        private double _current;
 
 
         public ChargeControl(IUsbCharger usbCharger, IDisplay display)

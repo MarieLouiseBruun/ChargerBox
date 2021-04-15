@@ -31,7 +31,7 @@ namespace ChargerUnitTest
             _fileLog = Substitute.For<IFileLog>();
             _rfidReader = Substitute.For<IRfidReader>();
             _usbCharger = Substitute.For<IUsbCharger>();
-            _chargeControl = Substitute.For<ChargeControl>(_usbCharger);
+            _chargeControl = Substitute.For<ChargeControl>(_usbCharger, _display);
 
             _uut = new StationControl(_door, _rfidReader, _chargeControl, _fileLog, _display);
         }
